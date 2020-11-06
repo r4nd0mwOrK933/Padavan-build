@@ -25,7 +25,7 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth 1 https://github.com/chongshengB/rt-n56u.git /opt/rt-n56u
+        git clone --depth 1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
@@ -55,7 +55,6 @@ jobs:
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_SMBD=.*/CONFIG_FIRMWARE_INCLUDE_SMBD=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_SMBD36.*=.*/CONFIG_FIRMWARE_INCLUDE_SMBD36=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_FTPD.*=.*/CONFIG_FIRMWARE_INCLUDE_FTPD=n/g' .config
-        sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_EAP_PEAP.*=.*/CONFIG_FIRMWARE_INCLUDE_EAP_PEAP=n/g' .config	
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_XUPNPD.*=.*/CONFIG_FIRMWARE_INCLUDE_XUPNPD=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_FFMPEG_NEW.*=.*/CONFIG_FIRMWARE_INCLUDE_FFMPEG_NEW=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_ARIA=.*/CONFIG_FIRMWARE_INCLUDE_ARIA=n/g' .config
