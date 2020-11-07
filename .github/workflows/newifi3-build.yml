@@ -2,17 +2,10 @@ name: Newifi3-Build
 #修改TNAME为你需要编译的型号，注意名称要与configs/templates/目录下的名字相同
 
 on: 
-  release:
+  #schedule:
+    #- cron: 0 10 * * 0
+  watch:
     types: [started]
-#  push:
-#    tags:
-#    - 'v*'
-  #  branches: 
-  #    - master
-#  schedule:
- #   - cron: 0 17 * * 4
-#  watch:
-   # types: [started]
 
 jobs:
   build:
