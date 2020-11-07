@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     #if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -72,6 +72,7 @@ jobs:
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_MTR.*=.*/CONFIG_FIRMWARE_INCLUDE_MTR=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_SOCAT.*=.*/CONFIG_FIRMWARE_INCLUDE_SOCAT=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_MENTOHUST.*=.*/CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n/g' .config
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS/a CONFIG_FIRMWARE_INCLUDE_V2RAY=y' .config
 
         sudo ./clear_tree
         sudo ./build_firmware_modify $TNAME 0
