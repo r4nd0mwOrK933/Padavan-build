@@ -3,7 +3,7 @@ name: Newifi3-Build
 
 on: 
   release:
-    types: [published]
+    types: [started]
 #  push:
 #    tags:
 #    - 'v*'
