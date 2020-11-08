@@ -1,4 +1,7 @@
 # Padavan-build 
+
+目前版本废了，穿墙大法不可用
+
 极简新路由3老毛子固件<br>
 9MB Newifi D2 Firmware
 
