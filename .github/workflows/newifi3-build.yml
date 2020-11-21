@@ -1,38 +1,31 @@
 #修改TNAME为你需要编译的型号，注意名称要与configs/templates/目录下的名字相同
 name: Newifi3-Build
 
-on: 
-  release:
-    types: [published]
-  push:
-    tags:
-    - 'v*'
-  #  branches: 
-  #    - master
-#  schedule:
-#    - cron: 0 8 * * 5
+on:
+  #schedule:
+    #- cron: 0 10 * * 0
   watch:
     types: [started]
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
-    if: github.event.repository.owner.id == github.event.sender.id
+    runs-on: ubuntu-20.04
+    #if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@main
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo apt-get update
+        sudo apt-get update && sudo apt-get upgrade
         sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot \
         cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth=1 https://github.com/chongshengB/rt-n56u.git /opt/rt-n56u
+        git clone --depth 1 https://github.com/chongshengB/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
@@ -46,7 +39,7 @@ jobs:
         exit 1
         fi
         cp -f configs/templates/$TNAME.config .config
-        sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE.*=.*/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config 
+
         sed -i 's/.*CONFIG_FIRMWARE_ENABLE_USB.*=.*/CONFIG_FIRMWARE_ENABLE_USB=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_ENABLE_UFSD.*=.*/CONFIG_FIRMWARE_ENABLE_UFSD=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_ENABLE_FAT.*=.*/CONFIG_FIRMWARE_ENABLE_FAT=n/g' .config
@@ -82,13 +75,14 @@ jobs:
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CLIENT.*=.*/CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CLIENT=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD.*=.*/CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER.*=.*/CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER=n/g' .config
-        sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_VLMCSD.*=.*/CONFIG_FIRMWARE_INCLUDE_VLMCSD=y/g' .config		
+        sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_VLMCSD.*=.*/CONFIG_FIRMWARE_INCLUDE_VLMCSD=n/g' .config		
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_TTYD.*=.*/CONFIG_FIRMWARE_INCLUDE_TTYD=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_MTR.*=.*/CONFIG_FIRMWARE_INCLUDE_MTR=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_SOCAT.*=.*/CONFIG_FIRMWARE_INCLUDE_SOCAT=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_SRELAY.*=.*/CONFIG_FIRMWARE_INCLUDE_SRELAY=n/g' .config
         sed -i 's/.*CONFIG_FIRMWARE_INCLUDE_MENTOHUST.*=.*/CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n/g' .config
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS/a CONFIG_FIRMWARE_INCLUDE_V2RAY=y' .config
+
         sudo ./clear_tree
         sudo ./build_firmware_modify $TNAME 0
         sudo mv -f images/*.trx /opt/images/
