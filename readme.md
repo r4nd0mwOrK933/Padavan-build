@@ -1,13 +1,10 @@
 # Padavan-build 
 
-目前版本废了，穿墙大法不可用，
-既有老Release仍然可用
-
 极简新路由3老毛子固件<br>
 
 编译适用于Newifi3的Padavan固件<br>
 使用chongshengB修改版rt-n56u<br>
-https://github.com/chongshengB/rt-n56u
+https://github.com/hanwckf/rt-n56u
 
 删除基本路由之外的附加功能<br>
 添加唯一需要的穿墙木马DA法
