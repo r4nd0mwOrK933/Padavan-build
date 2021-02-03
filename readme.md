@@ -3,7 +3,7 @@
 极简新路由3老毛子固件<br>
 
 编译适用于Newifi3的Padavan固件<br>
-使用chongshengB修改版rt-n56u<br>
+使用hanwckf修改版rt-n56u<br>
 https://github.com/hanwckf/rt-n56u
 
 删除基本路由之外的附加功能<br>
